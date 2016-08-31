@@ -4,7 +4,7 @@ header = """
 // ==UserScript==
 // @name         GitLab Link Styler
 // @namespace    http://ryanleonard.us/
-// @version      0.2
+// @version      0.3
 // @description  Styles closed issues and merge requests on GitLab
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*

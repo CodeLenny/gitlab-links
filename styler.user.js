@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitLab Link Styler
 // @namespace    http://ryanleonard.us/
-// @version      0.2
+// @version      0.3
 // @description  Styles closed issues and merge requests on GitLab
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*
@@ -60,7 +60,6 @@ function gmSet(val, contents) {
         if (new Date() > new Date(_timestamp + cacheTime)) {
           throw new Error("out of date");
         }
-        console.log(stored);
         p = Promise.resolve(stored);
       } catch (error) {
         e = error;

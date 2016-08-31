@@ -20,6 +20,10 @@ default.  I recommend adjusting the update frequency in the TamperMonkey setting
 
 ## Change Log
 
+#### v0.3 (8/11/2016)
+
+- Added assets forgotten in v0.2
+
 #### v0.2 (8/11/2016)
 
 - Added `_version` flag to the stored data, to ensure bugfixes to caching are applied.
