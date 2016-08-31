@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitLab Link Styler
 // @namespace    http://ryanleonard.us/
-// @version      0.1
+// @version      0.2
 // @description  Styles closed issues and merge requests on GitLab
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*
@@ -44,7 +44,7 @@ function gmSet(val, contents) {
   };
 
   linkIssue = function() {
-    var _timestamp, e, error, issue, original, p, project, ref, stored;
+    var _timestamp, _version, e, error, issue, original, p, project, ref, stored;
     ref = $(this).data(), original = ref.original, project = ref.project, issue = ref.issue;
     p = fetches[project + "-" + issue];
     if (!p) {
@@ -53,10 +53,14 @@ function gmSet(val, contents) {
         if (!stored) {
           throw new Error("no stored data");
         }
-        _timestamp = stored._timestamp;
+        _version = stored._version, _timestamp = stored._timestamp;
+        if (_version !== GM_info.script.version) {
+          throw new Error("cached in a different version");
+        }
         if (new Date() > new Date(_timestamp + cacheTime)) {
           throw new Error("out of date");
         }
+        console.log(stored);
         p = Promise.resolve(stored);
       } catch (error) {
         e = error;
@@ -69,7 +73,8 @@ function gmSet(val, contents) {
           },
           dataType: "json"
         })).then(function(data) {
-          data._timestamp = new Date();
+          data._timestamp = Date.now();
+          data._version = GM_info.script.version;
           gmSet("iss-" + project + "-" + issue, JSON.stringify(data));
           return data;
         });
@@ -78,7 +83,7 @@ function gmSet(val, contents) {
     fetches[project + "-" + issue] = p;
     return p.then((function(_this) {
       return function(arg) {
-        var all, checked, description, state, title;
+        var all, checked, description, percent, state, title;
         state = arg.state, title = arg.title, description = arg.description;
         if (state === "closed") {
           return $(_this).css("text-decoration", "line-through");
@@ -88,7 +93,14 @@ function gmSet(val, contents) {
           try {
             checked = description.match(regexes.filled).length;
           } catch (undefined) {}
-          return $(_this).attr("data-checklist", Math.round(10 * checked / all)).attr("title", "Issue: " + title + " (" + checked + "/" + all + ")");
+          percent = Math.round(10 * checked / all);
+          if (percent === 0 && checked > 0) {
+            percent = 10;
+          }
+          if (percent === 100 && checked < all) {
+            percent = 90;
+          }
+          return $(_this).attr("data-checklist", percent).attr("title", "Issue: " + title + " (" + checked + "/" + all + ")");
         }
       };
     })(this))["catch"](console.log);

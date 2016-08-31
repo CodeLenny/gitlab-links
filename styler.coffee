@@ -18,7 +18,8 @@ linkIssue = ->
     try
       stored = JSON.parse gmGet "iss-#{project}-#{issue}"
       throw new Error("no stored data") if not stored
-      {_timestamp} = stored
+      {_version, _timestamp} = stored
+      throw new Error("cached in a different version") if _version isnt GM_info.script.version
       throw new Error("out of date") if new Date() > new Date(_timestamp + cacheTime)
       p = Promise.resolve stored
     catch e
@@ -30,7 +31,8 @@ linkIssue = ->
           beforeSend: (xhr) -> xhr.setRequestHeader "PRIVATE-TOKEN", token
           dataType: "json"
         .then (data) ->
-          data._timestamp = new Date()
+          data._timestamp = Date.now()
+          data._version = GM_info.script.version
           gmSet "iss-#{project}-#{issue}", JSON.stringify data
           data
   fetches["#{project}-#{issue}"] = p
@@ -43,8 +45,11 @@ linkIssue = ->
         checked = 0
         try
           checked = description.match(regexes.filled).length
+        percent = Math.round 10 * checked / all
+        percent = 10 if percent is 0 and checked > 0
+        percent = 90 if percent is 100 and checked < all
         $(@)
-          .attr "data-checklist", Math.round 10 * checked / all
+          .attr "data-checklist", percent
           .attr "title", "Issue: #{title} (#{checked}/#{all})"
     .catch console.log
 

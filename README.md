@@ -17,3 +17,13 @@ which TamperMonkey will prompt you to install.
 
 The script is set to automatically update itself, but the TamperMonkey extension has a very slow update interval by
 default.  I recommend adjusting the update frequency in the TamperMonkey settings.
+
+## Change Log
+
+#### v0.2 (8/11/2016)
+
+- Added `_version` flag to the stored data, to ensure bugfixes to caching are applied.
+- Fixed timestamp caching issue
+- Tweaked rounding:
+  - if the percent of completed tasks would round to 0%, but one or more tasks are completed, round up to 10% so the issue doesn't appear unstarted
+  - if the percent of completed tasks would round to 100%, but one or more tasks are not yet completed, round down to 90% so the issue doesn't appear fully resolved
