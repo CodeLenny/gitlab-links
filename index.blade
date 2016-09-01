@@ -1,0 +1,84 @@
+html
+  head
+    title GitLab Link Styler
+    //-<title>GitLab Link Styler</title>
+    meta(name="description", content="Homepage and settings for GitLab Link Styler")
+    //-<meta name="description" content="Homepage and settings for GitLab Link Styler">
+    link(rel="stylesheet",href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700")
+    link(rel="stylesheet", href="docs.css")
+    link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", rel="stylesheet")
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+  body
+    #header.bg-primary.p-y-3
+      .container
+        h1 GitLab Link Styler
+        p.lead
+          | Styles closed issues and merge requests on GitLab
+    #main.container.card
+      .card-block
+        .row
+          .col-md-9
+            p.lead
+              | Crosses out closed issues.  Adds a progress bar to issues that are open and have a checklist.
+          .col-md-3
+            ul.nav
+              li.nav-item.hidden-sm-down
+                a.nav-link(href="#main") About
+              li.nav-item
+                a.nav-link(href="#install") Installation
+              li.nav-item
+                a.nav-link(href="#settings") Settings
+              li.nav-item
+                a.nav-link(href="https://github.com/CodeLenny/gitlab-links") GitHub
+      .card-block
+        img.img-fluid(src="http://i.imgur.com/iSUZum2.png")
+      #install.card-block
+        h2 Installation
+        p.lead
+          | Install&nbsp;
+          a(href="https://tampermonkey.net/") TamperMonkey
+          | , then visit the&nbsp;
+          a(href="https://raw.githubusercontent.com/CodeLenny/gitlab-links/master/styler.user.js") raw script
+          | .  TamperMonkey will prompt you to install the script.
+      #settings.card-block
+        h2 Settings
+        #notfound.alert.alert-warning
+          strong Link Styler Not Loaded
+          | &nbsp;are you sure you've&nbsp;
+          a.alert-link(href="#install") installed
+          | &nbsp;the script?
+        form
+          .row
+            .col-xs-8.col-sm-9.col-md-10
+              .form-group
+                label.bmd-label-floating(for="apiKey") GitLab API Key
+                input#apiKey.form-control(type="text")
+                .bmd-help
+                  | Create one on&nbsp;
+                  a(href="https://gitlab.com/profile/personal_access_tokens") GitLab
+            .col-xs-4.col-sm-3.col-md-2.bmd-form-group
+              a.btn.btn-primary(href="#removeApiKey") Remove
+          .row
+            .col-xs-12.col-md-8
+              .form-group.is-filled
+                label.bmd-label-floating(for="cacheDuration") Cache Duration (Minutes)
+                input#cacheDuration.form-control(type="number", value="20")
+                .bmd-help
+                  | Caches the last state of issues and merge requests for the duration specified.
+            .col-xs-12.col-md-4.bmd-form-group
+              span#cacheSize 0
+              | &nbsp;items in the cache.&nbsp;
+              a(href="#clearCache") Clear Cache
+          .checkbox.p-t-3
+            label
+              input#showProgress(type="checkbox")
+              | &nbsp;Show progress bar for issues with checklists
+          .pull-right
+            button.btn.btn-primary.btn-raised(type="submit") Save
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+    script(src="https://cdn.rawgit.com/HubSpot/tether/7151ff59c6090ea4e3e50ef0355aaf7e553b7fa9/dist/js/tether.min.js")
+    script(src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/370f1774f31b5c53cadab5ce384fe0c9d0dd22c0/dist/bootstrap-material-design.iife.min.js")
+    :js
+      $("body").bootstrapMaterialDesign()

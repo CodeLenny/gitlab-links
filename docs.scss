@@ -1,0 +1,13 @@
+// Variables that can be overridden: https://github.com/FezVrasta/bootstrap-material-design/blob/v4-dev/scss/_variables.scss
+// Color options: https://github.com/FezVrasta/bootstrap-material-design/blob/v4-dev/scss/variables/_colors.scss
+@import "bootstrap-material-design/scss/variables/colors";
+$brand-primary: $deep-purple;
+@import "bootstrap-material-design/scss/core";
+
+#main {
+  margin-top: -1.5rem;
+}
+
+.checkbox label {
+  color: black;
+}
