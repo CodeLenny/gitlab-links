@@ -1,0 +1,19 @@
+{
+  "name": "gitlab-link-styler",
+  "version": "0.3.0",
+  "description": "Styles closed issues and merge requests on GitLab",
+  "main": "styler.user.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeLenny/gitlab-links.git"
+  },
+  "author": "Ryan Leonard (http://ryanleonard.us)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodeLenny/gitlab-links/issues"
+  },
+  "homepage": "https://github.com/CodeLenny/gitlab-links#readme"
+}
