@@ -6,7 +6,7 @@
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*
 // @match        http*://codelenny.github.io/*
-// @match        http*://gitlab-link.codelenny.com/*
+// @match        http*://gitlab-links.codelenny.com/*
 // @grant GM_addStyle
 // @grant GM_getValue
 // @grant GM_setValue
@@ -26,15 +26,25 @@ function gmSet(val, contents) {
   GM_setValue(val, contents);
 }
 (function() {
-  var cacheTime, fetches, linkIssue, refresh, regexes, token;
+  var cacheTime, fetches, isSettingsURL, linkIssue, refresh, regexes, showProgressBar, showSettings, token;
 
-  cacheTime = 20 * 60 * 1000;
+  cacheTime = gmGet("cache-duration");
+
+  if (cacheTime == null) {
+    cacheTime = 20 * 60 * 1000;
+  }
 
   token = gmGet("gitlab-token");
 
   if (!token || token === "") {
     token = window.prompt("Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", "");
     gmSet("gitlab-token", token);
+  }
+
+  showProgressBar = gmGet("show-progress");
+
+  if (showProgressBar == null) {
+    showProgressBar = true;
   }
 
   fetches = {};
@@ -87,7 +97,7 @@ function gmSet(val, contents) {
         state = arg.state, title = arg.title, description = arg.description;
         if (state === "closed") {
           return $(_this).css("text-decoration", "line-through");
-        } else if (regexes.checkbox.test(description)) {
+        } else if (showProgressBar && regexes.checkbox.test(description)) {
           all = description.match(regexes.checkbox).length;
           checked = 0;
           try {
@@ -110,8 +120,28 @@ function gmSet(val, contents) {
     return $("[data-reference-type='issue']").each(linkIssue);
   };
 
-  $(function() {
-    return refresh();
-  });
+  isSettingsURL = function(url) {
+    return url.indexOf("codelenny.gitlab.io") > -1 || url.indexOf("gitlab-links.codelenny.com") > -1;
+  };
+
+  showSettings = function() {
+    var latest;
+    $("#notfound").hide();
+    latest = $("#latestVersion").text();
+    if (latest !== semver) {
+      $("#version").show();
+      return $("#userVersion").text(semver);
+    } else {
+      return $("#isfound").show();
+    }
+  };
+
+  if (isSettingsURL(window.location.href)) {
+    showSettings();
+  } else {
+    $(function() {
+      return refresh();
+    });
+  }
 
 }).call(this);

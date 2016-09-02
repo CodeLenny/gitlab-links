@@ -60,7 +60,6 @@ refresh = ->
   $("[data-reference-type='issue']").each linkIssue
 
 isSettingsURL = (url) ->
-  console.log "Checking #{url}.  #{semver}"
   url.indexOf("codelenny.gitlab.io") > -1 or
   url.indexOf("gitlab-links.codelenny.com") > -1
 
