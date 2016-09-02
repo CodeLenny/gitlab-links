@@ -4,7 +4,8 @@
   "description": "Styles closed issues and merge requests on GitLab",
   "main": "styler.user.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "cake --versionCommit all"
   },
   "repository": {
     "type": "git",
