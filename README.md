@@ -18,6 +18,10 @@ which TamperMonkey will prompt you to install.
 The script is set to automatically update itself, but the TamperMonkey extension has a very slow update interval by
 default.  I recommend adjusting the update frequency in the TamperMonkey settings.
 
+## Settings
+
+Visit [http://gitlab-links.codelenny.com/](gitlab-links.codelenny.com) to configure the plugin.
+
 ## Change Log
 
 #### v0.3 (8/11/2016)
