@@ -59,4 +59,21 @@ linkIssue = ->
 refresh = ->
   $("[data-reference-type='issue']").each linkIssue
 
-$ -> refresh()
+isSettingsURL = (url) ->
+  console.log "Checking #{url}.  #{semver}"
+  url.indexOf("codelenny.gitlab.io") > -1 or
+  url.indexOf("gitlab-links.codelenny.com") > -1
+
+showSettings = ->
+  $("#notfound").hide()
+  latest = $("#latestVersion").text()
+  if latest isnt semver
+    $("#version").show()
+    $("#userVersion").text semver
+  else
+    $("#isfound").show()
+
+if isSettingsURL window.location.href
+  showSettings()
+else
+  $ -> refresh()

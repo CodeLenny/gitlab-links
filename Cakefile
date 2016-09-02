@@ -22,7 +22,7 @@ header = """
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*
 // @match        http*://codelenny.github.io/*
-// @match        http*://gitlab-link.codelenny.com/*
+// @match        http*://gitlab-links.codelenny.com/*
 // @grant GM_addStyle
 // @grant GM_getValue
 // @grant GM_setValue
