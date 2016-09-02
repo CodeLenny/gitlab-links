@@ -78,7 +78,18 @@ showSettings = ->
   if showProgressBar
     $("#showProgress").attr "checked", "checked"
   $("#cacheSize").text gmList().length - 3
-
+  # Save settings
+  $("form").submit (e) ->
+    e.preventDefault()
+    t = $("#apiKey").val()
+    if t and t isnt "" and t isnt "[hidden]" and t.length > 10
+      gmSet "gitlab-token", t
+    cache = $("#cacheDuration").val()
+    if cache and cache isnt 0 and parseInt cache
+      gmSet "cache-duration", parseInt(cache) * 60 * 1000
+    gmSet "show-progress", $("#showProgress").is(":checked")
+    $("form [type='submit']").removeClass("btn-primary").addClass("btn-success").text "Saved"
+    window.setTimeout (-> $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text "Save"), 1500
 if isSettingsURL window.location.href
   showSettings()
 else

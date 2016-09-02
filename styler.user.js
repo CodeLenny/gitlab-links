@@ -143,7 +143,24 @@ function gmList() {
     if (showProgressBar) {
       $("#showProgress").attr("checked", "checked");
     }
-    return $("#cacheSize").text(gmList().length - 3);
+    $("#cacheSize").text(gmList().length - 3);
+    return $("form").submit(function(e) {
+      var cache, t;
+      e.preventDefault();
+      t = $("#apiKey").val();
+      if (t && t !== "" && t !== "[hidden]" && t.length > 10) {
+        gmSet("gitlab-token", t);
+      }
+      cache = $("#cacheDuration").val();
+      if (cache && cache !== 0 && parseInt(cache)) {
+        gmSet("cache-duration", parseInt(cache) * 60 * 1000);
+      }
+      gmSet("show-progress", $("#showProgress").is(":checked"));
+      $("form [type='submit']").removeClass("btn-primary").addClass("btn-success").text("Saved");
+      return window.setTimeout((function() {
+        return $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text("Save");
+      }), 1500);
+    });
   };
 
   if (isSettingsURL(window.location.href)) {
