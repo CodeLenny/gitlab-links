@@ -141,8 +141,9 @@ function gmList() {
       $("#cacheDuration").val(cacheTime / (60 * 1000)).parents(".form-group").addClass("is-filled");
     }
     if (showProgressBar) {
-      return $("#showProgress").attr("checked", "checked");
+      $("#showProgress").attr("checked", "checked");
     }
+    return $("#cacheSize").text(gmList().length - 3);
   };
 
   if (isSettingsURL(window.location.href)) {
