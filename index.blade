@@ -49,6 +49,18 @@ html
           | &nbsp;are you sure you've&nbsp;
           a.alert-link(href="#install") installed
           | &nbsp;the script?
+        #version.alert.alert-info(style="display: none;")
+          strong Out of Date
+          | &nbsp;the latest version is&nbsp;
+          strong#latestVersion= semver
+          | .  You are running
+          strong#userVersion
+          | .&nbsp;
+          a.alert-link(href="https://raw.githubusercontent.com/CodeLenny/gitlab-links/master/styler.user.js") Update Now
+        #isfound.alert.alert-success(style="display: none;")
+          strong Link Styler Loaded
+          | &nbsp;you are running the latest version.  You can configure Link Styler via
+          | the form below.
         form
           .row
             .col-xs-8.col-sm-9.col-md-10
