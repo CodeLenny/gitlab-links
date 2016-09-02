@@ -36,11 +36,6 @@ function gmSet(val, contents) {
 
   token = gmGet("gitlab-token");
 
-  if (!token || token === "") {
-    token = window.prompt("Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", "");
-    gmSet("gitlab-token", token);
-  }
-
   showProgressBar = gmGet("show-progress");
 
   if (showProgressBar == null) {
@@ -130,15 +125,29 @@ function gmSet(val, contents) {
     latest = $("#latestVersion").text();
     if (latest !== semver) {
       $("#version").show();
-      return $("#userVersion").text(semver);
+      $("#userVersion").text(semver);
     } else {
-      return $("#isfound").show();
+      $("#isfound").show();
+    }
+    if (token && token !== "") {
+      $("#apiKey").val("[hidden]").parents(".form-group").addClass("is-filled");
+      $("#apiKey").siblings(".bmd-help").append("  API key hidden for security.");
+    }
+    if (cacheTime && typeof cacheTime === typeof 10) {
+      $("#cacheDuration").val(cacheTime / (60 * 1000)).parents(".form-group").addClass("is-filled");
+    }
+    if (showProgressBar) {
+      return $("#showProgress").attr("checked", "checked");
     }
   };
 
   if (isSettingsURL(window.location.href)) {
     showSettings();
   } else {
+    if (!token || token === "") {
+      token = window.prompt("Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", "");
+      gmSet("gitlab-token", token);
+    }
     $(function() {
       return refresh();
     });

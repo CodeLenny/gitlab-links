@@ -2,9 +2,6 @@
 cacheTime = gmGet "cache-duration"
 cacheTime ?= 20 * 60 * 1000
 token = gmGet "gitlab-token"
-if not token or token is ""
-  token = window.prompt "Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", ""
-  gmSet "gitlab-token", token
 showProgressBar = gmGet "show-progress"
 showProgressBar ?= yes
 
@@ -64,6 +61,7 @@ isSettingsURL = (url) ->
   url.indexOf("gitlab-links.codelenny.com") > -1
 
 showSettings = ->
+  # Configure Alerts
   $("#notfound").hide()
   latest = $("#latestVersion").text()
   if latest isnt semver
@@ -71,8 +69,19 @@ showSettings = ->
     $("#userVersion").text semver
   else
     $("#isfound").show()
+  # Populate fields
+  if token and token isnt ""
+    $("#apiKey").val("[hidden]").parents(".form-group").addClass "is-filled"
+    $("#apiKey").siblings(".bmd-help").append "  API key hidden for security."
+  if cacheTime and typeof cacheTime is typeof 10
+    $("#cacheDuration").val(cacheTime / (60 * 1000)).parents(".form-group").addClass "is-filled"
+  if showProgressBar
+    $("#showProgress").attr "checked", "checked"
 
 if isSettingsURL window.location.href
   showSettings()
 else
+  if not token or token is ""
+    token = window.prompt "Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", ""
+    gmSet "gitlab-token", token
   $ -> refresh()
