@@ -11,6 +11,7 @@
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant GM_listValues
+// @grant GM_deleteValue
 // @require      http://code.jquery.com/jquery-latest.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.4.5/bluebird.min.js
 // @connect      gitlab.com
