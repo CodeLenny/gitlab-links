@@ -90,6 +90,11 @@ showSettings = ->
     gmSet "show-progress", $("#showProgress").is(":checked")
     $("form [type='submit']").removeClass("btn-primary").addClass("btn-success").text "Saved"
     window.setTimeout (-> $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text "Save"), 1500
+  # Clear Cache
+  $("[href='#clearCache']").click ->
+    for val in gmList()
+      return if val.indexOf("iss-") isnt 0 or val.indexOf("mr-") isnt 0
+      gmDelete val
 if isSettingsURL window.location.href
   showSettings()
 else

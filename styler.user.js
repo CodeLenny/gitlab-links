@@ -144,7 +144,7 @@ function gmList() {
       $("#showProgress").attr("checked", "checked");
     }
     $("#cacheSize").text(gmList().length - 3);
-    return $("form").submit(function(e) {
+    $("form").submit(function(e) {
       var cache, t;
       e.preventDefault();
       t = $("#apiKey").val();
@@ -160,6 +160,17 @@ function gmList() {
       return window.setTimeout((function() {
         return $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text("Save");
       }), 1500);
+    });
+    return $("[href='#clearCache']").click(function() {
+      var i, len, ref, val;
+      ref = gmList();
+      for (i = 0, len = ref.length; i < len; i++) {
+        val = ref[i];
+        if (val.indexOf("iss-") !== 0 || val.indexOf("mr-") !== 0) {
+          return;
+        }
+        gmDelete(val);
+      }
     });
   };
 
