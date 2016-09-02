@@ -92,7 +92,7 @@ docs = ->
 option "-c", "--versionCommit", "Add and commit built files, intended to be run on 'version'."
 
 task "build:tampermonkey", "Build assets for TamperMonkey", (options) ->
-  tamperMonkey()
+  tamperMonkey options
     .then -> console.log chalk.blue "Built TamperMonkey."
     .catch console.log
 
