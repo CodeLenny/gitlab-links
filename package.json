@@ -1,6 +1,6 @@
 {
   "name": "gitlab-link-styler",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Styles closed issues and merge requests on GitLab",
   "main": "styler.user.js",
   "scripts": {
