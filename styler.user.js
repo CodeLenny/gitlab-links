@@ -10,6 +10,7 @@
 // @grant GM_addStyle
 // @grant GM_getValue
 // @grant GM_setValue
+// @grant GM_listValues
 // @require      http://code.jquery.com/jquery-latest.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.4.5/bluebird.min.js
 // @connect      gitlab.com
@@ -24,6 +25,9 @@ function gmGet(val) {
 }
 function gmSet(val, contents) {
   GM_setValue(val, contents);
+}
+function gmList() {
+  return GM_listValues();
 }
 (function() {
   var cacheTime, fetches, isSettingsURL, linkIssue, refresh, regexes, showProgressBar, showSettings, token;
