@@ -91,10 +91,12 @@ showSettings = ->
     $("form [type='submit']").removeClass("btn-primary").addClass("btn-success").text "Saved"
     window.setTimeout (-> $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text "Save"), 1500
   # Clear Cache
-  $("[href='#clearCache']").click ->
+  $("[href='#clearCache']").click (e) ->
+    e.preventDefault()
     for val in gmList()
-      return if val.indexOf("iss-") isnt 0 or val.indexOf("mr-") isnt 0
+      continue if val.indexOf("iss-") isnt 0 and val.indexOf("mr-") isnt 0
       gmDelete val
+      $("#cacheSize").text gmList().length - 3
 if isSettingsURL window.location.href
   showSettings()
 else

@@ -165,16 +165,20 @@ function gmDelete(val) {
         return $("form [type='submit']").addClass("btn-primary").removeClass("btn-success").text("Save");
       }), 1500);
     });
-    return $("[href='#clearCache']").click(function() {
-      var i, len, ref, val;
+    return $("[href='#clearCache']").click(function(e) {
+      var i, len, ref, results, val;
+      e.preventDefault();
       ref = gmList();
+      results = [];
       for (i = 0, len = ref.length; i < len; i++) {
         val = ref[i];
-        if (val.indexOf("iss-") !== 0 || val.indexOf("mr-") !== 0) {
-          return;
+        if (val.indexOf("iss-") !== 0 && val.indexOf("mr-") !== 0) {
+          continue;
         }
         gmDelete(val);
+        results.push($("#cacheSize").text(gmList().length - 3));
       }
+      return results;
     });
   };
 
