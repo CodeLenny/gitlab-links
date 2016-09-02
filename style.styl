@@ -1,0 +1,20 @@
+background-linear-gradient()
+  background -webkit-linear-gradient(arguments)
+  background -moz-linear-gradient(arguments)
+  background -o-linear-gradient(arguments)
+  background -ms-linear-gradient(arguments)
+  background linear-gradient(arguments)
+
+for x in 0 1 2 3 4 5 6 7 8 9 10
+  a[data-reference-type='issue'][data-checklist={'"'+x+'"'}]
+    position relative
+    padding-bottom 2px
+    text-decoration none
+    &::after
+      content: ""
+      position absolute
+      left 0
+      bottom 0
+      height 2px
+      width 100%
+      background-linear-gradient left, #008000 0%, #008000 0%, #f00 0%, #f00 100%

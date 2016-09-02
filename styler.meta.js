@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         GitLab Link Styler
 // @namespace    http://ryanleonard.us/
-// @version      0.3
+// @version      0.003000
 // @description  Styles closed issues and merge requests on GitLab
 // @author       Ryan Leonard
 // @match        http*://gitlab.com/*
+// @match        http*://codelenny.github.io/*
+// @match        http*://gitlab-link.codelenny.com/*
 // @grant GM_addStyle
 // @grant GM_getValue
 // @grant GM_setValue
