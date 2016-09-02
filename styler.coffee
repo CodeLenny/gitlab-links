@@ -1,9 +1,12 @@
 # 20 minutes
-cacheTime = 20 * 60 * 1000
+cacheTime = gmGet "cache-duration"
+cacheTime ?= 20 * 60 * 1000
 token = gmGet "gitlab-token"
 if not token or token is ""
   token = window.prompt "Enter a GitLab API token\nCreate one at https://gitlab.com/profile/personal_access_tokens", ""
   gmSet "gitlab-token", token
+showProgressBar = gmGet "show-progress"
+showProgressBar ?= yes
 
 fetches = {}
 
@@ -40,7 +43,7 @@ linkIssue = ->
     .then ({state, title, description}) =>
       if state is "closed"
         $(@).css "text-decoration", "line-through"
-      else if regexes.checkbox.test description
+      else if showProgressBar and regexes.checkbox.test description
         all = description.match(regexes.checkbox).length
         checked = 0
         try
